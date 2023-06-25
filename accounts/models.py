@@ -21,7 +21,7 @@ class MyaccountManager(BaseUserManager):
         )
 
         user.set_password(password)
-        user.save(suing=self.db)
+        user.save(using=self.db)
         return user
     
     def create_superuser(self, email, username, name,univ, password):
@@ -52,5 +52,5 @@ class Account(AbstractUser):
     def __str__(self):
         return self.username
     
-    def has_perm(self, perm, onj=None):
+    def has_perm(self, perm, obj=None):
         return self.is_superuser
