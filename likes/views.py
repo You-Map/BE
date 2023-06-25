@@ -8,51 +8,7 @@ from likes.models import Like
 from posts.models import Post
 from django.contrib.auth import get_user_model
 
-# Create your views here.
-
-class LikeCreateDelete(generics.CreateAPIView, generics.DestroyAPIView, generics.RetrieveAPIView):
-    queryset = Like.objects.all()
-    serializer_class = LikeSerializer
-
-    # def get_object(self):
-    #     queryset = self.filter_queryset(self.get_queryset())
-    #     # Here, we are returning the first object in the queryset. You could modify this to 
-    #     # filter the queryset instead to return the object you want to delete
-    #     obj = queryset.first() 
-    #     return obj
-
-
-    def destroy(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        post = serializer.validated_data['post']
-        user = serializer.validated_data['user']
-        if self.get_queryset().filter(post=post, user=user).exists():
-            post.likes -= 1
-            post.save()
-
-            instance = self.get_object()
-            self.perform_destroy(instance)
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-
-        # post = Post.objects.get(pk=self.kwargs['pk'])
-        if self.get_queryset().exists():
-            self.get_queryset().delete()
-            post.likes -= 1
-            post.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-
-    def perform_create(self, serializer):
-        post_pk = serializer.validated_data['post']
-        user_id = serializer.validated_data['user']
-
-        if not self.get_queryset().filter(post=post_pk, user=user_id).exists():
-            post_pk.likes += 1
-            post_pk.save()
-
-            serializer.save()
+# Create your views here
 
 class LikeCreateDeleteTmp(generics.CreateAPIView, generics.DestroyAPIView, generics.RetrieveAPIView):
     queryset = Like.objects.all()
