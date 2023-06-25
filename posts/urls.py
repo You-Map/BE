@@ -8,7 +8,8 @@ from .views import *
 
 urlpatterns=[
     path('list-all/', PostListAllAPIView.as_view()),
-    path('list-certified/', PostListCertifiedAPIView.as_view()),
+    path('list-certified-loc/', PostListCertifiedLocationAPIView.as_view()),
+    path('list-certified-pur/', PostListCertifiedPurposeAPIView.as_view()),
     path('create/', PostCreateAPIView.as_view()),
     path('retrieve/<int:pk>/', PostRetrieveAPIView.as_view()),
     path('update<int:pk>/', PostUpdateAPIView.as_view()),
