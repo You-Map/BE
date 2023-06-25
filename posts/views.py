@@ -21,9 +21,11 @@ class PostListCertifiedAPIView(generics.ListAPIView):
         
         def list(self, request, *args, **kwargs):
             search_purpose = self.request.query_params.get('purpose')
+            search_location = self.request.query_params.get('location')
             queryset = self.filter_queryset(self.get_queryset())
-            if search_purpose is not None:
-                queryset=queryset.filter(purpose=search_purpose)
+            if (search_purpose is not None) and (search_location is not None):
+                queryset=queryset.filter(purpose=search_purpose).filter(location=search_location)
+                
 
             query_list = []
             for i in queryset:
