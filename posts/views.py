@@ -25,7 +25,6 @@ class PostListCertifiedPurposeAPIView(generics.ListAPIView):
             queryset = self.filter_queryset(self.get_queryset())
             if (search_purpose is not None):
                 queryset=queryset.filter(purpose=search_purpose)
-                
 
             query_list = []
             for i in queryset:
@@ -50,7 +49,6 @@ class PostListCertifiedLocationAPIView(generics.ListAPIView):
             if (search_location is not None):
                 queryset=queryset.filter(location=search_location)
                 
-
             query_list = []
             for i in queryset:
                 if i.likes >= 10 :
