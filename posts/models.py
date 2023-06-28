@@ -5,10 +5,16 @@ User = get_user_model()
 
 class Purpose(models.Model):
     name = models.CharField(max_length=10)
+    
+    def __str__(self):
+        return self.name
 
 class Location(models.Model):
     name = models.CharField(max_length=10)
     floor = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     title = models.CharField(max_length=20)
@@ -19,6 +25,9 @@ class Post(models.Model):
     location = models.ForeignKey(to=Location, on_delete=models.CASCADE)
     created_at = models.DateTimeField(verbose_name='작성일', auto_now_add=True)
     likes = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return self.title
 
 class Comment(models.Model):
     writer=models.ForeignKey(to=User, on_delete=models.CASCADE)
