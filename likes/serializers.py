@@ -4,6 +4,4 @@ from likes.models import Like
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
-        fields = '__all__'
-
-    
+        fields = []
